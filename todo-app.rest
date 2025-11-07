@@ -1,0 +1,57 @@
+### GET /
+GET http://localhost:5000
+### REGISTER
+POST http://localhost:5000/auth/register
+Content-Type: application/json
+
+{
+    "username": "a",
+    "password": "a"
+}
+
+### LOGIN
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+    "username": "b",
+    "password": "s"
+}
+###
+DELETE http://localhost:5000/auth/delete/:id
+
+###
+
+GET http://localhost:5000/todos
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzYyNTQ2MTY2LCJleHAiOjE3NjI1NDk3NjZ9.5FDmlq2FPUqR21nWrGckkStTQPtEpu6IE7y4dj_KTPE
+
+
+### POST http://localhost:5000/todos
+POST http://localhost:5000/todos
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzYyNTQ2NjM5LCJleHAiOjE3NjI1NTAyMzl9.6eDlcYzEQzq8QUC9ZvAhLjlHoIwnAVIV0TI2WNypGb4
+Content-Type: application/json
+
+{
+    "task": "Novi zadatak",
+    "completed": false
+}
+
+### UPDATE http://localhost:5000/todos/:id
+PUT http://localhost:5000/todos/2?page=4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzYyNTQ2NjM5LCJleHAiOjE3NjI1NTAyMzl9.6eDlcYzEQzq8QUC9ZvAhLjlHoIwnAVIV0TI2WNypGb4
+Content-Type: application/json
+
+{
+    "completed": 1,
+    "task": "Novi zadatak"
+}
+
+### DELETE http://localhost:5000/todos/:id
+DELETE  http://localhost:5000/todos/2
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzYyNTQ2NjM5LCJleHAiOjE3NjI1NTAyMzl9.6eDlcYzEQzq8QUC9ZvAhLjlHoIwnAVIV0TI2WNypGb4
+Content-Type: application/json
+
+{
+    "completed": 1,
+    "task": "Novi zadatak"
+}
