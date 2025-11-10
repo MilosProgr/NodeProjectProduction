@@ -33,7 +33,7 @@ router.post('/register', async (req, res) => {
         })
 
         // create a token
-        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '24h' })
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "30m" })
         res.json({ token })
     } catch (err) {
         console.log(err.message)
