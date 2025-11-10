@@ -19,22 +19,34 @@ const email = document.getElementById('emailInput');
 const password = document.getElementById('passwordInput');
 const registerBtn = document.getElementById('registerBtn');
 const authBtn = document.getElementById('authBtn');
+const logoutBtn = document.getElementById('logoutBtn');
 
 // --- FUNCTIONS ---
 
-function showAuth() {
-    authContent.style.display = 'flex';
-    nav.style.display = 'none';
-    header.style.display = 'none';
-    main.style.display = 'none';
+// Centralna kontrola vidljivosti UI elemenata
+function updateAuthUI() {
+    if (token) {
+        authContent.style.display = 'none';
+        nav.style.display = 'block';
+        header.style.display = 'flex';
+        main.style.display = 'flex';
+        logoutBtn.style.display = 'block';
+    } else {
+        authContent.style.display = 'flex';
+        nav.style.display = 'none';
+        header.style.display = 'none';
+        main.style.display = 'none';
+        logoutBtn.style.display = 'none';
+    }
+}
+
+async function showAuth() {
+    updateAuthUI();
 }
 
 async function showDashboard() {
-    nav.style.display = 'block';
-    header.style.display = 'flex';
-    main.style.display = 'flex';
-    authContent.style.display = 'none';
     await fetchTodos();
+    updateAuthUI();
 }
 
 function updateHeaderText() {
@@ -61,6 +73,12 @@ async function toggleIsRegister() {
     document.querySelector('#auth > div h2').innerText = isRegistration ? 'Sign Up' : 'Login';
     document.querySelector('.register-content p').innerText = isRegistration ? 'Already have an account?' : "Don't have an account?";
     document.querySelector('.register-content button').innerText = isRegistration ? 'Sign in' : 'Sign up';
+}
+
+async function logout() {
+    token = null;
+    localStorage.removeItem('token');
+    showAuth();
 }
 
 async function authenticate() {
@@ -201,8 +219,12 @@ async function deleteTodo(id) {
 }
 
 // --- INITIALIZE ---
-if (token) {
-    (async () => { await fetchTodos(); showDashboard(); })();
-} else {
-    showAuth();
-}
+document.addEventListener('DOMContentLoaded', () => {
+    updateAuthUI();
+
+    if (token) {
+        (async () => { await fetchTodos(); })();
+    } else {
+        showAuth();
+    }
+});
